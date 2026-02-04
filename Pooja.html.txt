@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Pooja 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #ffdde1, #ee9ca7);
+    overflow: hidden;
+    font-family: 'Playfair Display', serif;
+    color: #5a1a2e;
+}
+
+/* Center Card */
+.card {
+    position: relative;
+    max-width: 380px;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    z-index: 2;
+}
+
+/* Title */
+.title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 38px;
+    text-align: center;
+    color: #c9184a;
+    margin-bottom: 10px;
+}
+
+/* Letter text */
+#letter {
+    font-size: 15px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    min-height: 220px;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: rgba(201,24,74,0.6);
+    font-size: 18px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+/* Love notes */
+.note {
+    position: absolute;
+    font-size: 12px;
+    color: #c9184a;
+    opacity: 0.6;
+    animation: drift 12s linear infinite;
+}
+
+@keyframes drift {
+    0% { transform: translateY(110vh) translateX(0); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(40px); opacity: 0; }
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 11px;
+    margin-top: 15px;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="title">Pooja</div>
+    <div id="letter"></div>
+    <div class="footer">Forever, quietly yours 💗</div>
+</div>
+
+<script>
+const text = 
+`Pooja,
+
+Some people arrive like seasons,
+others like storms—
+but you arrived like a prayer
+I didn’t know I was whispering.
+
+Loving you isn’t loud,
+it’s gentle,
+like the way moonlight
+rests on still water.
+
+I don’t ask for promises,
+or futures written in certainty.
+I only ask for this moment—
+to feel you exist,
+and to love you without demand.
+
+If love had a language,
+it would sound like your name
+spoken softly,
+again and again.
+
+This Valentine’s Day,
+know this—
+you are loved,
+not to be owned,
+but to be held
+with reverence.
+
+Always,
+in every quiet place of my heart.`;
+
+let i = 0;
+const speed = 35;
+function typeWriter() {
+    if (i < text.length) {
+        document.getElementById("letter").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+    }
+}
+typeWriter();
+
+// Floating hearts
+for (let i = 0; i < 20; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+    heart.style.fontSize = 14 + Math.random() * 20 + "px";
+    document.body.appendChild(heart);
+}
+
+// Love notes
+const notes = ["love", "forever", "yours", "always", "Pooja 💖"];
+for (let i = 0; i < 10; i++) {
+    const note = document.createElement("div");
+    note.className = "note";
+    note.innerText = notes[Math.floor(Math.random() * notes.length)];
+    note.style.left = Math.random() * 100 + "vw";
+    note.style.animationDuration = 8 + Math.random() * 6 + "s";
+    document.body.appendChild(note);
+}
+</script>
+
+</body>
+</html>
