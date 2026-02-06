@@ -121,10 +121,16 @@ body {
   <div id="letter"></div>
   <div class="footer">Forever, quietly yours 💖</div>
 </div>
-
 <script>
-const text = 
-`Pooja,
+document.addEventListener("DOMContentLoaded", () => {
+
+  const playBtn = document.getElementById("playBtn");
+  const overlay = document.getElementById("overlay");
+  const music = document.getElementById("bgMusic");
+  const letter = document.getElementById("letter");
+  const signature = document.getElementById("signature");
+
+  const text = `Pooja,
 
 Some people arrive like seasons,
 others like storms—
@@ -157,35 +163,46 @@ with reverence.
 Always,
 in every quiet place of my heart.`;
 
-let i = 0;
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("letter").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 35);
+  let i = 0;
+
+  function typeWriter() {
+    if (i < text.length) {
+      letter.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 45);
+    } else {
+      setTimeout(() => {
+        signature.classList.add("show");
+      }, 800);
+    }
   }
-}
 
-function startExperience() {
-  const music = document.getElementById("bgMusic");
-  music.volume = 0.8;
-  music.play();
+  function startHearts() {
+    for (let j = 0; j < 10; j++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 12 + Math.random() * 18 + "px";
+      heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+    }
+  }
 
-  document.getElementById("overlay").style.display = "none";
-  typeWriter();
-}
+  playBtn.addEventListener("click", () => {
+    music.volume = 0.7;
+    music.play().then(() => {
+      overlay.style.display = "none";
+      setTimeout(typeWriter, 500);
+      setTimeout(startHearts, 1200);
+    }).catch(() => {
+      alert("Tap once more to start the music 💗");
+    });
+  });
 
-/* Floating hearts */
-for (let i = 0; i < 18; i++) {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = 14 + Math.random() * 22 + "px";
-  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
-  document.body.appendChild(heart);
-}
+});
 </script>
+
 
 </body>
 </html>
