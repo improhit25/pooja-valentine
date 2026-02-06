@@ -44,10 +44,6 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-#playBtn:active {
-  transform: scale(0.96);
-}
-
 /* Card */
 .card {
   position: relative;
@@ -79,25 +75,35 @@ body {
   min-height: 220px;
 }
 
+/* Signature */
+#signature {
+  margin-top: 14px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 22px;
+  color: #c9184a;
+  text-align: right;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 1.4s ease;
+}
+
+#signature.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Hearts */
 .heart {
   position: absolute;
   color: rgba(201,24,74,0.6);
-  animation: floatUp 6s linear infinite;
+  animation: floatUp 7s linear infinite;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
   0% { transform: translateY(100vh) scale(0.6); opacity: 0; }
   10% { opacity: 1; }
   100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  font-size: 11px;
-  margin-top: 15px;
-  opacity: 0.7;
 }
 </style>
 </head>
@@ -109,7 +115,7 @@ body {
   <source src="apna.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Overlay with Play Button -->
+<!-- Overlay -->
 <div class="overlay" id="overlay">
   <div>Tap ▶ to begin the magic 💗</div>
   <button id="playBtn" onclick="startExperience()">▶ Play Music</button>
@@ -119,7 +125,7 @@ body {
 <div class="card">
   <div class="title">Pooja</div>
   <div id="letter"></div>
-  <div class="footer">Forever, quietly yours 💖</div>
+  <div id="signature">— Rohit</div>
 </div>
 
 <script>
@@ -158,31 +164,36 @@ Always,
 in every quiet place of my heart.`;
 
 let i = 0;
+
 function typeWriter() {
   if (i < text.length) {
     document.getElementById("letter").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typeWriter, 35);
+    setTimeout(typeWriter, 40); // smoother
+  } else {
+    setTimeout(() => {
+      document.getElementById("signature").classList.add("show");
+    }, 600);
   }
 }
 
 function startExperience() {
   const music = document.getElementById("bgMusic");
-  music.volume = 0.8;
+  music.volume = 0.75;
   music.play();
 
   document.getElementById("overlay").style.display = "none";
-  typeWriter();
+  setTimeout(typeWriter, 400);
 }
 
-/* Floating hearts */
-for (let i = 0; i < 18; i++) {
+/* Floating hearts (lighter load) */
+for (let i = 0; i < 10; i++) {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerHTML = "❤";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = 14 + Math.random() * 22 + "px";
-  heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+  heart.style.fontSize = 14 + Math.random() * 18 + "px";
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
   document.body.appendChild(heart);
 }
 </script>
